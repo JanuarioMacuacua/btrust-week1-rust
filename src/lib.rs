@@ -157,7 +157,7 @@ pub fn halving_schedule(blocks: &[u64]) -> HashMap<u64, u64> {
     let base_reward_sats = 50 * BTC_TO_SATS;
     let halving_interval = 210_000;
     let mut result = HashMap::new();
-    
+
     for &block in blocks {
         let halvings = block / halving_interval;
         let reward = base_reward_sats >> halvings;
@@ -208,5 +208,10 @@ pub fn extract_tx_version(raw_tx_hex: &str) -> Result<u32, String> {
         Ok(bytes) => bytes,
         Err(_) => return Err(String::from("Hex decode error")),
     };
-    Ok(u32::from_le_bytes([version_bytes[0], version_bytes[1], version_bytes[2], version_bytes[3]]))
+    Ok(u32::from_le_bytes([
+        version_bytes[0],
+        version_bytes[1],
+        version_bytes[2],
+        version_bytes[3],
+    ]))
 }
